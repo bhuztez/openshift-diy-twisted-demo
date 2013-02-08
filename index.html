@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8" />
+<title>Twisted on Openshift</title>
+<script type="text/javascript">
+var display;
+var websocket;
+
+function displayMessage(message) {
+  var p = document.createElement("p");
+  p.innerHTML = message;
+  display.appendChild(p);
+}
+
+function onOpen(event) {
+  displayMessage("SENT: Hello, world!");
+  websocket.send("Hello, world!");
+}
+
+function onMessage(event) {
+  displayMessage("RECEIVED: " + event.data);
+  websocket.close();
+}
+
+function onLoad() {
+  display = document.getElementById("display");
+  displayMessage("BEGIN");
+  websocket = new WebSocket("wss://"+ window.location.hostname + ":8443/ws/");
+  websocket.onopen = onOpen;
+  websocket.onmessage = onMessage;
+}
+
+window.addEventListener("load", onLoad);
+</script>
+</head>
+<body>
+<div id="display"></div>
+</body>
+</html>
