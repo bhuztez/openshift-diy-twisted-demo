@@ -5,8 +5,8 @@ from twisted.web import server
 
 import simple
 
-port = int(os.environ['OPENSHIFT_INTERNAL_PORT'])
-interface = os.environ['OPENSHIFT_INTERNAL_IP']
+port = int(os.environ['OPENSHIFT_DIY_PORT'])
+interface = os.environ['OPENSHIFT_DIY_IP']
 
 site = server.Site(simple.Simple())
 web_service = internet.TCPServer(port, site, interface=interface)
